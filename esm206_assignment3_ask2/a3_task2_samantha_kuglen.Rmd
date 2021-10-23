@@ -80,6 +80,8 @@ Run the code below, and check the output, to see how it works:
 ```{r}
 # Run this code: 
 
+# Notes: create new object from starwars and separate the name column into 'name_first' and 'name_additional'. These entries are separated by a space " ". extra = "merge" splits everything else into the second column if there's any other extra spaces, don't remove the original column
+
 sw_sep_names <- starwars %>% # Start from starwars data
   separate(col = name, # Separate the `name` column
            into = c("name_first","name_additional"), # Into two columns
@@ -99,7 +101,13 @@ Make sure to `View()` the resulting data frame (remember: run `View()` in the Co
 ```{r}
 # Your code here:
 
-
+sw_skin_sep <- starwars %>% 
+  separate(col = skin_color, # Separate the `skin_color` column
+           into = c("skin_1", "skin_2"), # Into two columns
+           sep = ", ", # separate after the first comma
+           extra = "merge", # merge anything after the first comma
+           remove = FALSE) # Keep original column
+ 
 ```
 
 ### 2. `tidyr::unite()`
