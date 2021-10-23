@@ -125,6 +125,8 @@ Check the output after running the code.
 ```{r}
 # Run this code:
 
+# Notes: creates a new data object from mpg, unites the existing columns manufacture and model into a new column named make_model with a HEY! in between make and model
+
 mpg_make_model <- mpg %>% # Start with mpg
   unite(col = make_model, # Create a new column called 'make_model'
         c(manufacturer, model), # That combines the manufacturer & model column
@@ -143,6 +145,11 @@ In the code chunk below, starting from the `mpg` data create a new data frame ca
 ```{r}
 # Your code here: 
 
+mpg_model_class <- mpg %>% 
+  unite(col = model_class, # Create a new column 'model_class'
+        c(model, class), # That combines the model and class column
+        sep = "-", # Puts a '-' in between model and class
+        remove = FALSE) # Keep origninal column
 
 ```
 
