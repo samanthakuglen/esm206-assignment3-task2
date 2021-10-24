@@ -149,7 +149,7 @@ mpg_model_class <- mpg %>%
   unite(col = model_class, # Create a new column 'model_class'
         c(model, class), # That combines the model and class column
         sep = "-", # Puts a '-' in between model and class
-        remove = FALSE) # Keep origninal column
+        remove = FALSE) # Keep original column
 
 ```
 
@@ -163,6 +163,7 @@ Run the code below to see how the `lubridate::ymd()` function (and variants) can
 
 ```{r}
 # Run the following lines of code, which contain dates in order of Year-Month-Day in different formats: 
+# Notes: ymd converts any type of inputted date to year-month-day format
 
 ymd(20201118)
 
@@ -180,6 +181,12 @@ In the code chunk below, use `ymd()` to convert a date that you choose in `YYYY-
 ```{r}
 # Your code here: 
 
+# December 17th, 1997 into YYYY-MM-DD format
+ymd("1997-12-17")
+
+ymd("1997/12/17")
+
+ymd(19971217)
 
 ```
 
@@ -189,6 +196,8 @@ We can also convert a collection of values to dates. In this code, I combine thr
 
 ```{r}
 # Run these lines of code: 
+
+# Notes: create vector of dates in month-day-year format, convert to dates, return. Class is date. Have to use `mdy because of the order of the dates
 
 my_dates <- c(03221988, 09302020, 12041995) # Creates a vector of dates w/o spaces
 my_dates_converted <- mdy(my_dates) # Converts to Date, stores as my_dates_converted
@@ -206,6 +215,9 @@ In the code chunk below, create a vector (using `c()`, as above) stored as `some
 ```{r}
 # Your code here: 
 
+some_dates <- c(11061972, 02142007,01301843) # Creates a vector of dates w/o spaces
+some_dates_converted <- mdy(some_dates) # Converts to Date class, store in new object
+some_dates_converted # Check the class of the vector
 
 ```
 
