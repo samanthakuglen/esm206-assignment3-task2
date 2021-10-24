@@ -303,7 +303,7 @@ Here's what that looks like for the example described above:
 ```{r}
 # Run this code: 
 
-# Notes: 
+# Notes: use mutate to add new season columns when there is a certain number for the month
 
 storm_season <- storms %>% # Start from storms data
   mutate(season = case_when( # Add a new column season, which contains... 
@@ -328,6 +328,11 @@ Note: If you add another condition within `case_when()` that is `TRUE ~ "some th
 ```{r}
 # Your code here: 
 
+storms_danger <- storms %>% # Start from storms data
+  mutate(danger = case_when(
+    status == "hurricane" ~ "high", # danger = "high" if status is hurricane
+    status != "hurricane" ~ "moderate" # danger = "moderate" if status is moderate
+  ))
 
 ```
 
