@@ -230,14 +230,19 @@ In this example, I use `ymd()` within `mutate()` to add a `date_new` column with
 ```{r}
 # Run this code first (remember you can select lines you want to run, then press Cmd/Ctrl + Enter to run it): 
 
+# Notes: use ymd as an argument to mutate to create add new column `date_new` with converted date. 
+# Create new column `year_new` with only the year from `date_new`
+# Create new column `month_new` with only the month from `date_new`
 lakers_dates <- lakers %>% 
   mutate(date_new = ymd(date)) %>% 
   mutate(year_new = year(date_new)) %>% 
   mutate(month_new = month(date_new))
   
 # ...and check out lakers_dates (View() in the Console). Notice that the three new columns have been added! 
+# View(lakers_dates)
 
 # Now run this code to calculate the total points by game_type (home or away) for each *month* in the data:
+# Notes: calculates the total points for each game by grouping by the game type and month, then using summarize::sum() to add the points
 
 points_by_month <- lakers_dates %>% 
   group_by(game_type, month_new) %>% 
@@ -262,7 +267,16 @@ Starting from the `lakers` dataset, create a new dataset called `gasol_hookshots
 ```{r}
 # Your code here: 
 
+gasol_hookshots <- lakers %>% 
+  filter(player %in% c("Pau Gasol"), type == "hook") %>% 
+  mutate(date_new = ymd(date)) %>% 
+  mutate(month_new = month(date_new)) %>% 
+  mutate(year_new = year(date_new))
 
+gasol_monthly_hookshots <- gasol_hookshots %>% 
+  filter(year_new %in% c("2008", "2009")) %>% 
+  group_by(month_new, year_new) %>% 
+  summarize(total_hook_shots = sum(points))
 ```
 
 ### 4. `dplyr::case_when()`
@@ -288,6 +302,8 @@ Here's what that looks like for the example described above:
 
 ```{r}
 # Run this code: 
+
+# Notes: 
 
 storm_season <- storms %>% # Start from storms data
   mutate(season = case_when( # Add a new column season, which contains... 
