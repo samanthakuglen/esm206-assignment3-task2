@@ -5,7 +5,7 @@ output: html_document
 ---
 
 ```{r setup, include = TRUE, warning = FALSE, message = FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 # Attach packages
 library(tidyverse)
@@ -37,7 +37,7 @@ Read and run the code chunk below. Make sure you understand what the code is doi
 ```{r}
 # Run this code: 
 
-# Notes: create a new object of starwars data separating the hair_color column into two columns hair_1 and hair_2. Each entry is separated by a comma, so indicate that as the separation to split it up
+# My notes: create a new object of starwars data separating the hair_color column into two columns hair_1 and hair_2. Each entry is separated by a comma, so indicate that as the separation to split it up
 
 sw_sep_hair <- starwars %>% # Start with starwars
   separate(col = hair_color, # Separate the hair_color column...
@@ -61,6 +61,7 @@ Make sure to `View()` the resulting data frame (remember: run `View()` in the Co
 ```{r}
 # Your code here: 
 
+# Create new object `sw_split_name` from the starwars dataframe and separate column name into two pieces
 sw_split_name <- starwars %>% 
   separate(col = name, # Separate the name column...
            into = c("name_1", "name_2"), # Into two columns 'name_1' & 'name_2'
@@ -80,7 +81,7 @@ Run the code below, and check the output, to see how it works:
 ```{r}
 # Run this code: 
 
-# Notes: create new object from starwars and separate the name column into 'name_first' and 'name_additional'. These entries are separated by a space " ". extra = "merge" splits everything else into the second column if there's any other extra spaces, don't remove the original column
+# My notes: create new object from starwars and separate the name column into 'name_first' and 'name_additional'. These entries are separated by a space " ". extra = "merge" splits everything else into the second column if there's any other extra spaces, don't remove the original column
 
 sw_sep_names <- starwars %>% # Start from starwars data
   separate(col = name, # Separate the `name` column
@@ -101,6 +102,7 @@ Make sure to `View()` the resulting data frame (remember: run `View()` in the Co
 ```{r}
 # Your code here:
 
+# Create a new object `sw_skin_sep` that separates skin color column into two and merges everything after the first comma
 sw_skin_sep <- starwars %>% 
   separate(col = skin_color, # Separate the `skin_color` column
            into = c("skin_1", "skin_2"), # Into two columns
@@ -125,7 +127,7 @@ Check the output after running the code.
 ```{r}
 # Run this code:
 
-# Notes: creates a new data object from mpg, unites the existing columns manufacture and model into a new column named make_model with a HEY! in between make and model
+# My notes: creates a new data object from mpg, unites the existing columns manufacture and model into a new column named make_model with a HEY! in between make and model
 
 mpg_make_model <- mpg %>% # Start with mpg
   unite(col = make_model, # Create a new column called 'make_model'
@@ -145,6 +147,7 @@ In the code chunk below, starting from the `mpg` data create a new data frame ca
 ```{r}
 # Your code here: 
 
+# Create a new object `mpg_model_class` from mpg data frame and combine model and class columns, separated by a `-`
 mpg_model_class <- mpg %>% 
   unite(col = model_class, # Create a new column 'model_class'
         c(model, class), # That combines the model and class column
@@ -163,7 +166,7 @@ Run the code below to see how the `lubridate::ymd()` function (and variants) can
 
 ```{r}
 # Run the following lines of code, which contain dates in order of Year-Month-Day in different formats: 
-# Notes: ymd converts any type of inputted date to year-month-day format
+# My notes: ymd converts any type of inputted date to year-month-day format
 
 ymd(20201118)
 
@@ -181,7 +184,7 @@ In the code chunk below, use `ymd()` to convert a date that you choose in `YYYY-
 ```{r}
 # Your code here: 
 
-# December 17th, 1997 into YYYY-MM-DD format
+# Convert December 17th, 1997 into YYYY-MM-DD format
 ymd("1997-12-17")
 
 ymd("1997/12/17")
@@ -197,7 +200,7 @@ We can also convert a collection of values to dates. In this code, I combine thr
 ```{r}
 # Run these lines of code: 
 
-# Notes: create vector of dates in month-day-year format, convert to dates, return. Class is date. Have to use `mdy because of the order of the dates
+# My notes: create vector of dates in month-day-year format, convert to dates, return. Class is date. Have to use `mdy because of the order of the dates
 
 my_dates <- c(03221988, 09302020, 12041995) # Creates a vector of dates w/o spaces
 my_dates_converted <- mdy(my_dates) # Converts to Date, stores as my_dates_converted
@@ -215,6 +218,8 @@ In the code chunk below, create a vector (using `c()`, as above) stored as `some
 ```{r}
 # Your code here: 
 
+# Create vector `some_dates` containing 3 values, then convert to Date class
+
 some_dates <- c(11061972, 02142007,01301843) # Creates a vector of dates w/o spaces
 some_dates_converted <- mdy(some_dates) # Converts to Date class, store in new object
 some_dates_converted # Check the class of the vector
@@ -230,7 +235,7 @@ In this example, I use `ymd()` within `mutate()` to add a `date_new` column with
 ```{r}
 # Run this code first (remember you can select lines you want to run, then press Cmd/Ctrl + Enter to run it): 
 
-# Notes: use ymd as an argument to mutate to create add new column `date_new` with converted date. 
+# My notes: use ymd as an argument to mutate to create add new column `date_new` with converted date. 
 # Create new column `year_new` with only the year from `date_new`
 # Create new column `month_new` with only the month from `date_new`
 lakers_dates <- lakers %>% 
@@ -267,16 +272,20 @@ Starting from the `lakers` dataset, create a new dataset called `gasol_hookshots
 ```{r}
 # Your code here: 
 
+# Create new object `gasol_hookshots` from lakers data set where only player Pau Gasol's hook shots are counted
 gasol_hookshots <- lakers %>% 
-  filter(player %in% c("Pau Gasol"), type == "hook") %>% 
+  filter(player %in% c("Pau Gasol"), 
+         type == "hook") %>% 
   mutate(date_new = ymd(date)) %>% 
   mutate(month_new = month(date_new)) %>% 
   mutate(year_new = year(date_new))
 
+# Gasol's hookshots for the 2008-2009 season only are counted
 gasol_monthly_hookshots <- gasol_hookshots %>% 
-  filter(year_new %in% c("2008", "2009")) %>% 
-  group_by(month_new, year_new) %>% 
-  summarize(total_hook_shots = sum(points))
+  count(month_new)
+
+gasol_monthly_hookshots
+
 ```
 
 ### 4. `dplyr::case_when()`
@@ -303,7 +312,7 @@ Here's what that looks like for the example described above:
 ```{r}
 # Run this code: 
 
-# Notes: use mutate to add new season columns when there is a certain number for the month
+# M notes: use mutate to add new season columns when there is a certain number for the month
 
 storm_season <- storms %>% # Start from storms data
   mutate(season = case_when( # Add a new column season, which contains... 
@@ -327,6 +336,8 @@ Note: If you add another condition within `case_when()` that is `TRUE ~ "some th
 
 ```{r}
 # Your code here: 
+
+# Create a new object `storms_danger` with storms data set and add danger column for conditions of hurricane or not a hurricane
 
 storms_danger <- storms %>% # Start from storms data
   mutate(danger = case_when(
